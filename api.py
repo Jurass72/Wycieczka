@@ -59,6 +59,8 @@ if __name__ == "__main__":
     print("Sortowanie", data.sortuj_wysokosc(szczyty)[:5])
     print("Filtowanie", data.filtruj_wysokosc(szczyty, 3300))
     print("Statystyki", data.statystyki(szczyty))
+    data.zapisz_plik(szczyty)
+    data.odczytaj_plik("szczyty.json")
 
 
 

@@ -16,11 +16,11 @@ def statystyki(szczyty):
         "max": max(wysokosc)
     }
 
-def zapisz_pliku(szczyty, nazwa="szczyty.json"):
+def zapisz_plik(szczyty, nazwa="szczyty.json"):
     with open(nazwa, "w", encoding="utf-8") as f:
         json.dump(szczyty, f, indent=4, ensure_ascii=False)
 
-def odczytaj_pliku(nazwa="szczyty.json"):
+def odczytaj_plik(nazwa="szczyty.json"):
     with open(nazwa, "r", encoding="utf-8") as f:
         return json.load(f)
 

@@ -1,5 +1,5 @@
-from game import nowy_stan, ETAPY
-from ui import utworz_okno, ekran_jazdy, ekran_startowy, ekran_wyboru
+from game import nowy_stan, ETAPY, aktualizuj_stan, czy_koniec
+from ui import utworz_okno, ekran_jazdy, ekran_startowy, ekran_wyboru, ekran_mety
 from api import pobierz_szczyty
 
 okno = utworz_okno()
@@ -51,9 +51,39 @@ def jazda():
     frame = ekran_jazdy(okno, etap, stan, decyzja, obok)
 
 def decyzja(co):
-    pass
+   global stan
+   etap = ETAPY[etap_nr]
+   stan = aktualizuj_stan(stan, co, etap )
+   koniec, komunikat = czy_koniec(stan, etap)
+   if not koniec:
+       jazda()
+       return
+   if komunikat == "META":
+       meta()
+   else:
+       stan("ENERGIA") - 50
+       jazda()
+
+
+def meta():
+    global frame
+    wyczysc() 
+    etap = ETAPY[etap_nr]
+    frame = ekran_mety(okno, etap, stan, 0, nastepny, start)
+
+def nastepny():
+    kolejny = etap_nr + 1  
+    if kolejny in ETAPY:
+        graj(kolejny)
+    else:
+        start()
+
+
+  
+
+
 
 if __name__ == "__main__":
     start()
     okno.mainloop()
-    czy_koniec()
+    

@@ -1,14 +1,15 @@
+import random
 ETAPY = {
     1:{"nazwa": "Cortina",
         "dystans": 15,
         "nachylenie": 7,
-        "trudność": "łatwy", 
+        "trudnosc": "łatwy", 
         "coords": (46.540, 12.135),
 },
 2:{"nazwa": "Marmolada",
         "dystans": 12,
         "nachylenie": 10,
-        "trudność": "średni", 
+        "trudnosc": "średni", 
         "coords": (46.45, 11.85)
 },
 }
@@ -68,7 +69,7 @@ def czy_koniec(stan, etap):
         return True, "brakuje energii"
     if stan["pozycja"] >= etap["dystans"]:
         return True, "META"
-    
+    return False, ""
 
 #odpalic te funklcje (if __name__) w tym pliku  
 
