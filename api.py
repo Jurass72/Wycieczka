@@ -5,23 +5,24 @@ import requests
 
 
 
-def pobiez_szczyty():
+def pobierz_szczyty():
     zapytanie = """
-    [out: json][timeout: 25];
+    [out:json][timeout:25];
     node["natural"= "peak"]["name"](46.2, 11.5, 46.8, 12.5);
-    outbody;
-"""
+    out body;
+    """
 
     try:
         print("API pobieranie danych")
         request = requests.post(
             "https://overpass-api.de/api/interpreter",
-            data = {"data": zapytanie},
+            data={"data": zapytanie},
             headers={"User-Agent": "DolomitiBikeApp/1.0 (contact@example.com)"},
-            )
+        )
         request.raise_for_status()
         dane = request.json()
         szczyty = []
+        print("ok")
         for el in dane.get("elements", []):
             if el.get("type") == "node":
                 tags = el.get("tags", {})
@@ -50,9 +51,14 @@ def pobiez_szczyty():
         
 
 if __name__ == "__main__":
-    szczyty = pobiez_szczyty()
+    szczyty = pobierz_szczyty()
     for szczyt in szczyty:
-        print(f"{szczyt['Nazwa']} - {['wysokosc']}m ")
+        print(f"{szczyt['nazwa']} - {szczyt['wysokosc']}m ")
+    
+    import data
+    print("Sortowanie", data.sortuj_wysokosc(szczyty)[:5])
+    print("Filtowanie", data.filtruj_wysokosc(szczyty, 3300))
+    print("Statystyki", data.statystyki(szczyty))
 
 
 
